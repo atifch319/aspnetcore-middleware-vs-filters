@@ -1,0 +1,52 @@
+@host = http://localhost:5133
+
+### List products
+GET {{host}}/api/products
+Accept: application/json
+
+### Get one product
+GET {{host}}/api/products/1
+
+### Missing product
+GET {{host}}/api/products/99999
+
+### Create a product
+POST {{host}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Desk lamp",
+  "price": 19.99
+}
+
+### Reject an empty name
+POST {{host}}/api/products
+Content-Type: application/json
+
+{
+  "name": "",
+  "price": 5
+}
+
+### Reject a non-positive price
+POST {{host}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Desk lamp",
+  "price": 0
+}
+
+### Supply a correlation ID
+GET {{host}}/api/products
+X-Correlation-ID: portfolio-demo-001
+
+### Development-only exception demonstration
+GET {{host}}/api/products/diagnostics/exception
+
+### Protected endpoint without a user
+GET {{host}}/api/products/secure-ping
+
+### Protected endpoint with the local demo user
+GET {{host}}/api/products/secure-ping
+X-Demo-User: portfolio.reader
